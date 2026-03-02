@@ -107,8 +107,8 @@
         .hero-title-line::before {
             content: "";
             position: absolute;
-            left: -6px;
-            right: -6px;
+            left: 0;
+            right: 0;
             bottom: 0.08em;
             height: 0.34em;
             z-index: -1;
@@ -800,10 +800,26 @@
                     currentMain.classList.add('is-side');
                 }
 
+                function focusVideo(slot, video) {
+                    setMainSlot(slot);
+                    slots.forEach(function (s) {
+                        var v = s.querySelector('video');
+                        if (!v) return;
+                        if (v === video) return;
+                        v.muted = true;
+                    });
+                    if (video) {
+                        video.muted = false;
+                        video.volume = 1;
+                        video.play().catch(function () {});
+                    }
+                }
+
                 slots.forEach(function (slot) {
                     var video = slot.querySelector('video');
                     if (!video) return;
-                    video.addEventListener('click', function () { setMainSlot(slot); });
+                    video.muted = true;
+                    video.addEventListener('click', function () { focusVideo(slot, video); });
                 });
             }
 
