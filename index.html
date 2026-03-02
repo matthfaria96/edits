@@ -92,6 +92,12 @@
         
         .hero-content-panel {}
 
+        .hero-main-title {
+            font-size: clamp(2.3rem, 5.4vw, 5.2rem);
+            line-height: 0.97;
+            max-width: 13ch;
+        }
+
         .hero-title-line {
             position: relative;
             display: inline-block;
@@ -469,7 +475,7 @@
 
         @media (min-width: 768px) {
             .hero-content-panel {
-                margin-left: clamp(10px, 1.4vw, 22px);
+                margin-left: clamp(16px, 2vw, 34px);
                 background: transparent;
                 border: 0;
                 backdrop-filter: none;
@@ -478,33 +484,35 @@
             }
         }
 
-        @media (min-width: 1700px) {
+        @media (min-width: 1850px) {
             .hero-content-panel {
-                margin-left: clamp(-220px, -14vw, -100px);
+                margin-left: clamp(-160px, -9vw, -80px);
             }
         }
 
-        @media (min-width: 768px) and (max-width: 1549px) {
+        @media (min-width: 1024px) and (max-width: 1549px) {
             .hero-main-title {
-                font-size: clamp(1.85rem, 3.2vw, 2.95rem) !important;
+                font-size: clamp(2rem, 3.25vw, 3.1rem) !important;
+                line-height: 1.02;
+            }
+
+            .hero-content-panel {
+                max-width: 580px;
+                margin-left: clamp(18px, 2.2vw, 36px);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1366px) {
+            .hero-main-title {
+                font-size: clamp(1.72rem, 3vw, 2.55rem) !important;
                 line-height: 1.04;
             }
 
             .hero-content-panel {
-                max-width: 620px;
-                margin-left: clamp(14px, 2.1vw, 34px);
-            }
-        }
-
-        @media (min-width: 1550px) and (max-width: 1699px) {
-            .hero-main-title {
-                font-size: clamp(2.2rem, 3vw, 3.45rem) !important;
-                line-height: 1.03;
-            }
-
-            .hero-content-panel {
-                margin-left: clamp(12px, 1.2vw, 22px);
-                max-width: 680px;
+                max-width: 520px;
+                margin-left: clamp(20px, 2.4vw, 40px);
+                padding-left: 0;
+                padding-right: 0;
             }
         }
 
@@ -556,7 +564,7 @@
 
         <div class="relative z-10 w-full max-w-[1180px] mx-auto">
             <div class="hero-content-panel max-w-3xl rounded-3xl p-8 md:p-12">
-                <h1 class="hero-main-title text-3xl md:text-4xl lg:text-7xl font-extrabold leading-tight">
+                <h1 class="hero-main-title font-extrabold leading-tight">
                     <span class="hero-title-line">Transform Ideas into</span> <br>
                     <span class="hero-title-line text-blue-400">Incredible Visual Stories</span> <br>
                     with Matheus Faria
