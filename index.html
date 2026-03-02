@@ -469,12 +469,29 @@
 
         @media (min-width: 768px) {
             .hero-content-panel {
-                margin-left: clamp(-240px, -17vw, -120px);
+                margin-left: 0;
                 background: transparent;
                 border: 0;
                 backdrop-filter: none;
                 -webkit-backdrop-filter: none;
                 box-shadow: none;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .hero-content-panel {
+                margin-left: clamp(-220px, -14vw, -100px);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1366px) {
+            .hero-main-title {
+                font-size: clamp(2rem, 3.9vw, 3.2rem) !important;
+                line-height: 1.05;
+            }
+
+            .hero-content-panel {
+                max-width: 640px;
             }
         }
 
@@ -526,7 +543,7 @@
 
         <div class="relative z-10 w-full max-w-[1180px] mx-auto">
             <div class="hero-content-panel max-w-3xl rounded-3xl p-8 md:p-12">
-                <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold leading-tight">
+                <h1 class="hero-main-title text-3xl md:text-4xl lg:text-7xl font-extrabold leading-tight">
                     <span class="hero-title-line">Transform Ideas into</span> <br>
                     <span class="hero-title-line text-blue-400">Incredible Visual Stories</span> <br>
                     with Matheus Faria
