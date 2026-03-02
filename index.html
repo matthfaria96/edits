@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matheus Faria | Premium Video Editor & Filmmaker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-deep: #151722;
+            --bg-mid: #232634;
+            --bg-soft: #2b2e3d;
+            --text-main: #f8f8f2;
+            --text-muted: #c6c9d9;
+            --accent-cyan: #00e5ff;
+            --accent-magenta: #ff2db4;
+            --accent-yellow: #ffe66d;
+            --glass: rgba(43, 46, 61, 0.5);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --accent: #00e5ff;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at 12% 8%, rgba(0, 229, 255, 0.16), transparent 34%),
+                radial-gradient(circle at 90% 12%, rgba(255, 45, 180, 0.16), transparent 36%),
+                radial-gradient(circle at 50% 100%, rgba(255, 230, 109, 0.08), transparent 40%),
+                linear-gradient(180deg, var(--bg-mid), var(--bg-deep) 52%, #0f1119);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: "Arial Black", "Segoe UI", Impact, sans-serif;
+            letter-spacing: 0.03em;
+            line-height: 1.04;
+            color: var(--text-main);
+        }
+
+        p {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .anchor-target { scroll-margin-top: 110px; }
+
+        .glass-panel {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 20px 50px rgba(2, 6, 23, 0.35);
+        }
+
+        .card-bg {
+            background: rgba(43, 46, 61, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+        }
+
+        .btn-blue {
+            background: linear-gradient(95deg, var(--accent-cyan), var(--accent-magenta) 58%, var(--accent-yellow));
+            color: #141622;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 12px 28px rgba(255, 45, 180, 0.35);
+        }
+
+        .btn-blue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 38px rgba(0, 229, 255, 0.32);
+        }
+
+        .hero-overlay {
+            background:
+                linear-gradient(90deg, rgba(21, 23, 34, 0.88) 0%, rgba(21, 23, 34, 0.62) 34%, rgba(21, 23, 34, 0.22) 62%, rgba(21, 23, 34, 0.5) 100%),
+                linear-gradient(180deg, rgba(21, 23, 34, 0.1), rgba(21, 23, 34, 0.66));
+        }
+
+        .hero-banner-main {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 22%;
+        }
+        
+        .hero-content-panel {}
+
+        .hero-title-line {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .hero-title-line::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            right: -6px;
+            bottom: 0.08em;
+            height: 0.34em;
+            z-index: -1;
+            border-radius: 6px;
+            transform: rotate(-1.2deg);
+            background: linear-gradient(95deg, rgba(255, 45, 180, 0.72), rgba(255, 15, 143, 0.78));
+            box-shadow: 0 10px 26px rgba(255, 45, 180, 0.45);
+        }
+
+        .hero-sub-highlight {
+            display: inline;
+            padding: 0 6px 2px;
+            border-radius: 6px;
+            background: linear-gradient(90deg, rgba(255, 45, 180, 0.58), rgba(255, 15, 143, 0.62));
+            box-shadow: 0 8px 22px rgba(255, 45, 180, 0.34);
+        }
+
+        .hero-mobile-image {
+            width: min(78vw, 320px);
+            height: min(78vw, 320px);
+            object-position: center 30%;
+            animation: mobileBannerDrift 8s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+
+        .hero-mobile-stack {
+            position: relative;
+            width: min(78vw, 320px);
+            height: min(78vw, 320px);
+            perspective: 900px;
+            transform-style: preserve-3d;
+            animation: mobileBannerDrift 8s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+
+        .hero-mobile-base {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            transform: translateZ(0);
+        }
+
+        .hero-mobile-over {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            pointer-events: none;
+            transform: translateZ(28px);
+            animation: mobileOverlayPulse 4.8s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
+        .reel-frame {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 16px;
+            background: #05070f;
+        }
+
+        .reel-card {
+            aspect-ratio: 9 / 16;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            box-shadow: 0 16px 40px rgba(2, 8, 23, 0.45);
+            transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .reels-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 2.2vw, 28px);
+            width: 100%;
+            margin: 0 auto;
+            max-width: 1160px;
+            padding: 10px 0 18px;
+        }
+
+        .reel-slot {
+            flex: 0 1 auto;
+        }
+
+        .reel-slot.is-side {
+            width: clamp(180px, 18vw, 280px);
+        }
+
+        .reel-slot.is-main {
+            width: clamp(250px, 29vw, 430px);
+        }
+
+        .reel-slot.is-side .reel-card {
+            transform: scale(0.86);
+            opacity: 0.72;
+            box-shadow: 0 22px 44px rgba(255, 45, 180, 0.12), 0 10px 24px rgba(0, 229, 255, 0.09);
+        }
+
+        .reel-slot.is-main .reel-card {
+            transform: scale(1.06);
+            opacity: 1;
+            box-shadow: 0 26px 62px rgba(255, 45, 180, 0.28), 0 12px 30px rgba(0, 229, 255, 0.24);
+            animation: mainReelBreath 4.4s ease-in-out infinite;
+        }
+
+        .viral-dark-section {
+            background:
+                radial-gradient(circle at 50% -10%, rgba(255, 45, 180, 0.18), transparent 46%),
+                linear-gradient(180deg, rgba(16, 18, 28, 0.96), rgba(10, 12, 20, 0.98));
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reel-slot.is-side .reel-card:hover {
+            transform: translateY(-4px) scale(0.86);
+            box-shadow: 0 24px 52px rgba(255, 45, 180, 0.2), 0 10px 26px rgba(0, 229, 255, 0.18);
+            filter: saturate(1.05);
+        }
+
+        .reel-slot.is-main .reel-card:hover {
+            transform: translateY(-8px) scale(1.09);
+            box-shadow: 0 34px 74px rgba(255, 45, 180, 0.4), 0 16px 40px rgba(0, 229, 255, 0.32);
+        }
+
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .long-video-card {
+            background: rgba(43, 46, 61, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 20px 42px rgba(0, 0, 0, 0.34);
+        }
+
+        .long-video-frame {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .video-tag {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff3fb;
+            background: linear-gradient(100deg, #ff2db4, #ff0f8f 55%, #ff58c7);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            padding: 5px 9px;
+            border-radius: 999px;
+            box-shadow: 0 8px 20px rgba(255, 45, 180, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        }
+
+        .video-tag:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 10px 26px rgba(255, 45, 180, 0.42);
+            filter: saturate(1.15);
+        }
+
+        .yt-shell {
+            position: relative;
+        }
+
+        .yt-load {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(15, 18, 30, 0.18), rgba(15, 18, 30, 0.55));
+            border: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transition: opacity 0.25s ease;
+        }
+
+        .yt-load-badge {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+            color: #131522;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .carousel-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 9999px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: rgba(15, 23, 42, 0.8);
+            color: #f8fafc;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .carousel-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .menu-link {
+            color: rgba(248, 248, 242, 0.9);
+            transition: color 0.2s ease;
+            font-weight: 700;
+        }
+
+        .menu-link:hover { color: var(--accent-cyan); }
+
+        .card-bg,
+        .long-video-card,
+        .btn-blue,
+        .yt-load,
+        .reel-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+        }
+
+        .card-bg:hover,
+        .long-video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 24px 48px rgba(0, 229, 255, 0.16), 0 16px 36px rgba(255, 45, 180, 0.14);
+            filter: saturate(1.06);
+        }
+
+        .yt-load:hover {
+            filter: brightness(1.08);
+        }
+
+        .edit-icons-marquee {
+            margin-top: 28px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            background: rgba(28, 31, 45, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .edit-icons-track {
+            display: flex;
+            width: max-content;
+            gap: 12px;
+            padding: 12px 14px;
+            animation: iconMarquee 16s linear infinite;
+        }
+
+        .edit-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            white-space: nowrap;
+            color: #fef2fb;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: linear-gradient(100deg, rgba(255, 45, 180, 0.2), rgba(0, 229, 255, 0.15));
+        }
+
+        @keyframes iconMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .text-blue-400 {
+            color: var(--accent-cyan) !important;
+            text-shadow: 0 0 24px rgba(0, 229, 255, 0.24);
+        }
+
+        .text-slate-300,
+        .text-slate-400,
+        .text-slate-500 {
+            color: var(--text-muted) !important;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes mobileBannerDrift {
+            0% { transform: scale(1.04) translate3d(-10px, -2px, 0); }
+            50% { transform: scale(1.08) translate3d(3px, 2px, 0); }
+            100% { transform: scale(1.06) translate3d(8px, -3px, 0); }
+        }
+
+        @keyframes mobileOverlayPulse {
+            0% { transform: translateZ(28px) scale(1); opacity: 0.98; }
+            50% { transform: translateZ(40px) scale(1.06); opacity: 1; }
+            100% { transform: translateZ(28px) scale(1); opacity: 0.98; }
+        }
+
+        @keyframes mainReelBreath {
+            0% { box-shadow: 0 24px 58px rgba(255, 45, 180, 0.24), 0 11px 28px rgba(0, 229, 255, 0.2); }
+            50% { box-shadow: 0 30px 72px rgba(255, 45, 180, 0.34), 0 14px 36px rgba(0, 229, 255, 0.28); }
+            100% { box-shadow: 0 24px 58px rgba(255, 45, 180, 0.24), 0 11px 28px rgba(0, 229, 255, 0.2); }
+        }
+
+        @media (max-width: 767px) {
+            .hero-section {
+                background:
+                    radial-gradient(circle at 70% 12%, rgba(59, 130, 246, 0.18), transparent 55%),
+                    linear-gradient(180deg, #02050f 0%, #030816 58%, #02040b 100%);
+            }
+
+            .hero-content-panel {
+                background: transparent;
+                border: 0;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .hero-mobile-image {
+                width: min(70vw, 280px);
+                height: min(70vw, 280px);
+            }
+
+            .hero-mobile-stack {
+                width: min(70vw, 280px);
+                height: min(70vw, 280px);
+            }
+
+            .reels-showcase {
+                gap: 8px;
+                max-width: 100%;
+                padding-bottom: 8px;
+            }
+
+            .reel-slot.is-side { width: 24%; }
+            .reel-slot.is-main { width: 48%; }
+            .reel-slot.is-side .reel-card { transform: scale(0.88); opacity: 0.68; }
+            .reel-slot.is-main .reel-card { transform: scale(1.02); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero-content-panel {
+                margin-left: clamp(-240px, -17vw, -120px);
+                background: transparent;
+                border: 0;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                box-shadow: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-aspect-ratio: 4/3) {
+            .hero-overlay {
+                background:
+                    linear-gradient(90deg, rgba(2, 6, 23, 0.92) 0%, rgba(2, 6, 23, 0.68) 34%, rgba(2, 6, 23, 0.15) 72%, rgba(2, 6, 23, 0.32) 100%),
+                    linear-gradient(180deg, rgba(2, 6, 23, 0.06), rgba(2, 6, 23, 0.58));
+            }
+
+            .hero-banner-main {
+                object-position: center 26%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fixed top-0 left-0 right-0 z-50">
+        <div class="glass-panel w-full rounded-none border-l-0 border-r-0 px-4 md:px-8">
+            <div class="max-w-[1180px] mx-auto py-3 flex items-center justify-between">
+                <a href="#home" class="font-extrabold tracking-wide text-sm md:text-base">MATHEUS FARIA</a>
+                <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
+                <a class="menu-link" href="#reels">Reels</a>
+                <a class="menu-link" href="#services">Services</a>
+                <a class="menu-link" href="#process">Process</a>
+                <a class="menu-link" href="#long">Long Videos</a>
+                <a class="menu-link" href="#contact">Contact</a>
+                </nav>
+                <button id="mobileMenuBtn" class="md:hidden h-10 w-10 rounded-full border border-slate-500/50 bg-slate-900/55 text-xl leading-none" aria-label="Open menu" type="button">☰</button>
+            </div>
+        </div>
+        <div id="mobileMenuPanel" class="hidden md:hidden glass-panel max-w-[1180px] mx-auto mt-3 rounded-2xl px-5 py-4">
+            <nav class="flex flex-col gap-3 text-sm font-semibold">
+                <a class="menu-link mobile-menu-link" href="#reels">Reels</a>
+                <a class="menu-link mobile-menu-link" href="#services">Services</a>
+                <a class="menu-link mobile-menu-link" href="#process">Process</a>
+                <a class="menu-link mobile-menu-link" href="#long">Long Videos</a>
+                <a class="menu-link mobile-menu-link" href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="anchor-target hero-section relative flex items-center px-6 pt-28 pb-12 md:py-0 overflow-hidden md:min-h-[82vh] lg:min-h-[90vh]">
+        <div class="absolute inset-0 hidden md:block">
+            <img src="banner_desktop.png" alt="Matheus Faria banner" class="hero-banner-main">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <div class="relative z-10 w-full max-w-[1180px] mx-auto">
+            <div class="hero-content-panel max-w-3xl rounded-3xl p-8 md:p-12">
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold leading-tight">
+                    <span class="hero-title-line">Transform Ideas into</span> <br>
+                    <span class="hero-title-line text-blue-400">Incredible Visual Stories</span> <br>
+                    with Matheus Faria
+                </h1>
+                <div class="mt-5 md:hidden">
+                    <div class="hero-mobile-stack">
+                        <img src="banner_mobile.png" alt="Matheus Faria banner mobile" class="hero-mobile-base">
+                        <img src="banner_mobile_over.png" alt="" class="hero-mobile-over" aria-hidden="true">
+                    </div>
+                </div>
+                <p class="mt-6 text-slate-200/90 text-base md:text-lg max-w-xl">
+                    I create videos that make your brand stand out, engage your audience, and boost your sales.
+                    <span class="hero-sub-highlight">With over 6 years of experience</span>, I've helped companies reach 7-figure revenues through creative and strategic content.
+                </p>
+                <div class="mt-10">
+                    <a href="#contact" class="btn-blue px-8 py-4 rounded-lg font-bold text-base md:text-lg inline-block">
+                        I WANT TO ELEVATE MY BUSINESS
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="edit-icons-marquee">
+                        <div class="edit-icons-track">
+                            <span class="edit-chip">✂️ Fast Cuts</span>
+                            <span class="edit-chip">🎯 Hook Design</span>
+                            <span class="edit-chip">🎨 Color Grading</span>
+                            <span class="edit-chip">🎧 Sound Design</span>
+                            <span class="edit-chip">📝 Subtitles</span>
+                            <span class="edit-chip">⚡ Motion Graphics</span>
+                            <span class="edit-chip">📈 Retention Editing</span>
+                            <span class="edit-chip">🖼️ Thumbnails</span>
+                            <span class="edit-chip">✂️ Fast Cuts</span>
+                            <span class="edit-chip">🎯 Hook Design</span>
+                            <span class="edit-chip">🎨 Color Grading</span>
+                            <span class="edit-chip">🎧 Sound Design</span>
+                            <span class="edit-chip">📝 Subtitles</span>
+                            <span class="edit-chip">⚡ Motion Graphics</span>
+                            <span class="edit-chip">📈 Retention Editing</span>
+                            <span class="edit-chip">🖼️ Thumbnails</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reels" class="anchor-target relative px-0 overflow-hidden no-reveal">
+        <div class="viral-dark-section w-full pt-12 md:pt-10 pb-24 md:pb-32">
+            <div class="relative z-10 text-center px-6 max-w-[1180px] mx-auto viral-motion-root">
+            <h2 class="text-4xl font-bold text-center mt-10 mb-12">Viral <span class="text-blue-400">Content</span></h2>
+
+            <div class="reels-showcase viral-motion-target">
+                <div class="reel-slot is-side">
+                    <article class="reel-card">
+                        <video class="reel-frame" src="reels.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+                    </article>
+                </div>
+                <div class="reel-slot is-main">
+                    <article class="reel-card">
+                        <video class="reel-frame" src="reels.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+                    </article>
+                </div>
+                <div class="reel-slot is-side">
+                    <article class="reel-card">
+                        <video class="reel-frame" src="reels.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+                    </article>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <button class="bg-slate-200 text-slate-900 px-10 py-3 rounded-lg font-bold hover:bg-white transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                    VIEW FULL PORTFOLIO
+                </button>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="anchor-target py-20 px-6 max-w-[1180px] mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16">Services <span class="text-blue-400">Offered</span></h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="card-bg p-8 rounded-2xl">
+                <div class="text-blue-400 mb-4 text-3xl">🎥</div>
+                <h4 class="text-xl font-bold mb-3">Shorts / Reels / TikTok</h4>
+                <p class="text-slate-300">Fast-paced short-form edits with strong hooks, clean pacing, and retention-first storytelling.</p>
+            </div>
+            <div class="card-bg p-8 rounded-2xl">
+                <div class="text-blue-400 mb-4 text-3xl">🎬</div>
+                <h4 class="text-xl font-bold mb-3">Long Videos (YouTube)</h4>
+                <p class="text-slate-300">Full long-form editing for YouTube with structure, story flow, and polished finishing.</p>
+            </div>
+            <div class="card-bg p-8 rounded-2xl">
+                <div class="text-blue-400 mb-4 text-3xl">🧠</div>
+                <h4 class="text-xl font-bold mb-3">Niches & Formats</h4>
+                <p class="text-slate-300">Gaming, brainrot, tutorials, vlogs, talking-head cuts, and custom formats for your audience.</p>
+            </div>
+            <div class="card-bg p-8 rounded-2xl">
+                <div class="text-blue-400 mb-4 text-3xl">📢</div>
+                <h4 class="text-xl font-bold mb-3">Ads & Creatives</h4>
+                <p class="text-slate-300">Performance-focused ad creatives with clear messaging, strong pacing, and conversion intent.</p>
+            </div>
+            <div class="card-bg p-8 rounded-2xl">
+                <div class="text-blue-400 mb-4 text-3xl">✨</div>
+                <h4 class="text-xl font-bold mb-3">Motion & Finishing</h4>
+                <p class="text-slate-300">Motion graphics, captions, sound design, color work, and finishing touches that elevate the final cut.</p>
+            </div>
+            <div class="card-bg p-8 rounded-2xl">
+                <div class="text-blue-400 mb-4 text-3xl">🖼️</div>
+                <h4 class="text-xl font-bold mb-3">Thumbnails & Design</h4>
+                <p class="text-slate-300">Standalone thumbnail and graphic design service built to boost CTR and brand consistency.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="anchor-target py-20 px-6 max-w-[1180px] mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16">My <span class="text-blue-400">Process</span></h2>
+        <div class="glass-panel rounded-3xl p-8 md:p-10 grid md:grid-cols-3 gap-8">
+            <div>
+                <span class="text-blue-400 font-bold text-2xl">01.</span>
+                <h4 class="text-xl font-bold mt-2">Briefing</h4>
+                <p class="text-slate-300 mt-2 text-sm">Understanding your goals, audience, and the message you want to convey.</p>
+            </div>
+            <div>
+                <span class="text-blue-400 font-bold text-2xl">02.</span>
+                <h4 class="text-xl font-bold mt-2">Production</h4>
+                <p class="text-slate-300 mt-2 text-sm">Editing, sound design, and color grading to ensure maximum quality.</p>
+            </div>
+            <div>
+                <span class="text-blue-400 font-bold text-2xl">03.</span>
+                <h4 class="text-xl font-bold mt-2">Delivery</h4>
+                <p class="text-slate-300 mt-2 text-sm">Final adjustments and delivery of optimized files for each platform.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="long" class="anchor-target py-20 px-6 max-w-[1180px] mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16">Long <span class="text-blue-400">Format Portfolio</span></h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            <article class="long-video-card">
+                <div class="yt-shell">
+                    <iframe class="long-video-frame aspect-video w-full" src="about:blank" data-yt-src="https://www.youtube.com/embed/P_VCOS6ag1Y?si=scodbgovrDmc4QeP" title="Long video 1" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <button class="yt-load" type="button"><span class="yt-load-badge">Load Video</span></button>
+                </div>
+                <div class="video-tags">
+                    <span class="video-tag">Gaming</span>
+                    <span class="video-tag">Commentary</span>
+                    <span class="video-tag">Long-form</span>
+                </div>
+            </article>
+            <article class="long-video-card">
+                <div class="yt-shell">
+                    <iframe class="long-video-frame aspect-video w-full" src="about:blank" data-yt-src="https://www.youtube.com/embed/P_VCOS6ag1Y?si=scodbgovrDmc4QeP" title="Long video 2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <button class="yt-load" type="button"><span class="yt-load-badge">Load Video</span></button>
+                </div>
+                <div class="video-tags">
+                    <span class="video-tag">Film Edit</span>
+                    <span class="video-tag">Cinematic</span>
+                    <span class="video-tag">Storytelling</span>
+                </div>
+            </article>
+            <article class="long-video-card">
+                <div class="yt-shell">
+                    <iframe class="long-video-frame aspect-video w-full" src="about:blank" data-yt-src="https://www.youtube.com/embed/P_VCOS6ag1Y?si=scodbgovrDmc4QeP" title="Long video 3" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <button class="yt-load" type="button"><span class="yt-load-badge">Load Video</span></button>
+                </div>
+                <div class="video-tags">
+                    <span class="video-tag">Coach</span>
+                    <span class="video-tag">Personal Brand</span>
+                    <span class="video-tag">YouTube</span>
+                </div>
+            </article>
+            <article class="long-video-card">
+                <div class="yt-shell">
+                    <iframe class="long-video-frame aspect-video w-full" src="about:blank" data-yt-src="https://www.youtube.com/embed/P_VCOS6ag1Y?si=scodbgovrDmc4QeP" title="Long video 4" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <button class="yt-load" type="button"><span class="yt-load-badge">Load Video</span></button>
+                </div>
+                <div class="video-tags">
+                    <span class="video-tag">Tutorial</span>
+                    <span class="video-tag">Educational</span>
+                    <span class="video-tag">How-to</span>
+                </div>
+            </article>
+            <article class="long-video-card">
+                <div class="yt-shell">
+                    <iframe class="long-video-frame aspect-video w-full" src="about:blank" data-yt-src="https://www.youtube.com/embed/P_VCOS6ag1Y?si=scodbgovrDmc4QeP" title="Long video 5" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <button class="yt-load" type="button"><span class="yt-load-badge">Load Video</span></button>
+                </div>
+                <div class="video-tags">
+                    <span class="video-tag">Vlog</span>
+                    <span class="video-tag">Lifestyle</span>
+                    <span class="video-tag">Creator</span>
+                </div>
+            </article>
+            <article class="long-video-card">
+                <div class="yt-shell">
+                    <iframe class="long-video-frame aspect-video w-full" src="about:blank" data-yt-src="https://www.youtube.com/embed/P_VCOS6ag1Y?si=scodbgovrDmc4QeP" title="Long video 6" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <button class="yt-load" type="button"><span class="yt-load-badge">Load Video</span></button>
+                </div>
+                <div class="video-tags">
+                    <span class="video-tag">Product</span>
+                    <span class="video-tag">Review</span>
+                    <span class="video-tag">Entertainment</span>
+                </div>
+            </article>
+        </div>
+        <div class="text-center mt-12">
+            <button class="bg-white text-black px-10 py-3 rounded-md font-bold hover:bg-slate-200 transition">VIEW FULL PORTFOLIO</button>
+        </div>
+    </section>
+
+    <section id="contact" class="anchor-target py-20 px-6 max-w-[1180px] mx-auto flex flex-col md:flex-row items-center gap-16">
+        <div class="md:w-1/2">
+            <h2 class="text-5xl font-bold mb-4 text-blue-400">Let's collaborate?</h2>
+            <p class="text-slate-300 text-lg mb-10">Ready to take your brand or project to the next level? Let's work together and create videos that generate results!</p>
+
+            <div class="space-y-4">
+                <a href="mailto:aguiarfilmescontato@gmail.com" class="card-bg p-6 rounded-2xl flex items-center gap-6 hover:border-blue-400 transition group">
+                    <div class="text-3xl">📧</div>
+                    <div>
+                        <p class="text-sm text-slate-400">Email Contact</p>
+                        <p class="font-bold group-hover:text-blue-300">aguiarfilmescontato@gmail.com</p>
+                    </div>
+                </a>
+                <a href="https://x.com/odavizito" class="card-bg p-6 rounded-2xl flex items-center gap-6 hover:border-blue-400 transition group">
+                    <div class="text-3xl text-white">𝕏</div>
+                    <div>
+                        <p class="text-sm text-slate-400">Social Media (X / Twitter)</p>
+                        <p class="font-bold group-hover:text-blue-300">@odavizito</p>
+                    </div>
+                </a>
+                <a href="https://instagram.com/aguiarfilmes" class="card-bg p-6 rounded-2xl flex items-center gap-6 hover:border-blue-400 transition group">
+                    <div class="text-3xl">📸</div>
+                    <div>
+                        <p class="text-sm text-slate-400">Instagram</p>
+                        <p class="font-bold group-hover:text-blue-300">@aguiarfilmes</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="md:w-1/2 flex justify-center">
+            <img src="rodape.png" alt="Matheus Faria" class="rounded-3xl shadow-blue-500/20 shadow-2xl w-full max-w-xl object-cover border border-slate-700/40">
+        </div>
+    </section>
+
+    <footer class="py-10 text-center border-t border-slate-800 text-slate-500 text-sm">
+        © 2026 Matheus Faria - All Rights Reserved.
+    </footer>
+
+    <script>
+        (function () {
+            var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            var mobileMenuPanel = document.getElementById('mobileMenuPanel');
+            var mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+            var reelsShowcase = document.querySelector('.reels-showcase');
+            var viralMotionRoot = document.querySelector('.viral-motion-root');
+            var viralMotionTarget = document.querySelector('.viral-motion-target');
+            var ytLoadButtons = document.querySelectorAll('.yt-load');
+
+            if (mobileMenuBtn && mobileMenuPanel) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    mobileMenuPanel.classList.toggle('hidden');
+                    mobileMenuBtn.textContent = mobileMenuPanel.classList.contains('hidden') ? '☰' : '✕';
+                });
+                mobileMenuLinks.forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        mobileMenuPanel.classList.add('hidden');
+                        mobileMenuBtn.textContent = '☰';
+                    });
+                });
+            }
+
+            if (reelsShowcase) {
+                var slots = Array.prototype.slice.call(reelsShowcase.querySelectorAll('.reel-slot'));
+
+                function setMainSlot(targetSlot) {
+                    if (!targetSlot || targetSlot.classList.contains('is-main')) return;
+                    var currentMain = reelsShowcase.querySelector('.reel-slot.is-main');
+                    if (!currentMain) return;
+
+                    targetSlot.classList.remove('is-side');
+                    targetSlot.classList.add('is-main');
+
+                    currentMain.classList.remove('is-main');
+                    currentMain.classList.add('is-side');
+                }
+
+                slots.forEach(function (slot) {
+                    var video = slot.querySelector('video');
+                    if (!video) return;
+                    video.addEventListener('click', function () { setMainSlot(slot); });
+                });
+            }
+
+            ytLoadButtons.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var shell = btn.closest('.yt-shell');
+                    var frame = shell ? shell.querySelector('iframe[data-yt-src]') : null;
+                    if (!frame || frame.dataset.loaded === 'true') return;
+                    frame.src = frame.dataset.ytSrc;
+                    frame.dataset.loaded = 'true';
+                    btn.style.opacity = '0';
+                    btn.style.pointerEvents = 'none';
+                });
+            });
+
+            if (viralMotionRoot && viralMotionTarget) {
+                var ticking = false;
+                function updateViralMotion() {
+                    var rect = viralMotionRoot.getBoundingClientRect();
+                    var vh = window.innerHeight || 800;
+                    var progress = (vh - rect.top) / (vh + rect.height);
+                    var clamped = Math.max(0, Math.min(1, progress));
+                    var y = (1 - clamped) * 18;
+                    var scale = 0.985 + clamped * 0.03;
+                    viralMotionTarget.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0) scale(' + scale.toFixed(4) + ')';
+                    viralMotionTarget.style.filter = 'saturate(' + (0.95 + clamped * 0.12).toFixed(3) + ')';
+                    ticking = false;
+                }
+                function onScroll() {
+                    if (!ticking) {
+                        window.requestAnimationFrame(updateViralMotion);
+                        ticking = true;
+                    }
+                }
+                window.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', onScroll);
+                onScroll();
+            }
+
+            var revealItems = document.querySelectorAll('section:not(.no-reveal), footer');
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.14 });
+
+            revealItems.forEach(function (item) {
+                item.classList.add('reveal');
+                observer.observe(item);
+            });
+        })();
+    </script>
+
+</body>
+</html>
