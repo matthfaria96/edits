@@ -50,18 +50,14 @@
         .anchor-target { scroll-margin-top: 110px; }
 
         .glass-panel {
-            background: var(--glass);
+            background: rgba(43, 46, 61, 0.72);
             border: 1px solid var(--glass-border);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
             box-shadow: 0 20px 50px rgba(2, 6, 23, 0.35);
         }
 
         .card-bg {
-            background: rgba(43, 46, 61, 0.5);
+            background: rgba(43, 46, 61, 0.62);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
         }
 
@@ -130,7 +126,7 @@
             width: min(78vw, 320px);
             height: min(78vw, 320px);
             object-position: center 30%;
-            animation: mobileBannerDrift 8s ease-in-out infinite alternate;
+            animation: mobileBannerDrift 12s ease-in-out infinite alternate;
             will-change: transform;
         }
 
@@ -140,7 +136,7 @@
             height: min(78vw, 320px);
             perspective: 900px;
             transform-style: preserve-3d;
-            animation: mobileBannerDrift 8s ease-in-out infinite alternate;
+            animation: mobileBannerDrift 12s ease-in-out infinite alternate;
             will-change: transform;
         }
 
@@ -163,7 +159,7 @@
             object-position: center 30%;
             pointer-events: none;
             transform: translateZ(28px);
-            animation: mobileOverlayPulse 4.8s ease-in-out infinite;
+            animation: mobileOverlayPulse 7.2s ease-in-out infinite;
             will-change: transform, opacity;
         }
 
@@ -181,8 +177,9 @@
             overflow: hidden;
             position: relative;
             border: 1px solid rgba(148, 163, 184, 0.25);
-            box-shadow: 0 16px 40px rgba(2, 8, 23, 0.45);
-            transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease, box-shadow 0.35s ease;
+            box-shadow: 0 12px 28px rgba(2, 8, 23, 0.38);
+            contain: layout paint;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
         }
 
         .reels-showcase {
@@ -211,14 +208,13 @@
         .reel-slot.is-side .reel-card {
             transform: scale(0.86);
             opacity: 0.72;
-            box-shadow: 0 22px 44px rgba(255, 45, 180, 0.12), 0 10px 24px rgba(0, 229, 255, 0.09);
+            box-shadow: 0 14px 32px rgba(255, 45, 180, 0.1), 0 6px 16px rgba(0, 229, 255, 0.08);
         }
 
         .reel-slot.is-main .reel-card {
             transform: scale(1.06);
             opacity: 1;
-            box-shadow: 0 26px 62px rgba(255, 45, 180, 0.28), 0 12px 30px rgba(0, 229, 255, 0.24);
-            animation: mainReelBreath 4.4s ease-in-out infinite;
+            box-shadow: 0 20px 48px rgba(255, 45, 180, 0.24), 0 8px 22px rgba(0, 229, 255, 0.2);
         }
 
         .viral-dark-section {
@@ -231,13 +227,12 @@
 
         .reel-slot.is-side .reel-card:hover {
             transform: translateY(-4px) scale(0.86);
-            box-shadow: 0 24px 52px rgba(255, 45, 180, 0.2), 0 10px 26px rgba(0, 229, 255, 0.18);
-            filter: saturate(1.05);
+            box-shadow: 0 18px 40px rgba(255, 45, 180, 0.18), 0 8px 22px rgba(0, 229, 255, 0.16);
         }
 
         .reel-slot.is-main .reel-card:hover {
             transform: translateY(-8px) scale(1.09);
-            box-shadow: 0 34px 74px rgba(255, 45, 180, 0.4), 0 16px 40px rgba(0, 229, 255, 0.32);
+            box-shadow: 0 24px 56px rgba(255, 45, 180, 0.32), 0 12px 30px rgba(0, 229, 255, 0.26);
         }
 
         .video-tags {
@@ -252,8 +247,6 @@
             border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 14px;
             padding: 10px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 20px 42px rgba(0, 0, 0, 0.34);
         }
 
@@ -277,7 +270,6 @@
         .video-tag:hover {
             transform: translateY(-2px) scale(1.03);
             box-shadow: 0 10px 26px rgba(255, 45, 180, 0.42);
-            filter: saturate(1.15);
         }
 
 
@@ -309,14 +301,13 @@
         .long-video-card,
         .btn-blue,
         .reel-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
         .card-bg:hover,
         .long-video-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 24px 48px rgba(0, 229, 255, 0.16), 0 16px 36px rgba(255, 45, 180, 0.14);
-            filter: saturate(1.06);
         }
 
         .edit-icons-marquee {
@@ -325,8 +316,6 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             background: rgba(28, 31, 45, 0.78);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
         }
 
         .edit-icons-track {
@@ -334,7 +323,8 @@
             width: max-content;
             gap: 12px;
             padding: 12px 14px;
-            animation: iconMarquee 16s linear infinite;
+            animation: iconMarquee 22s linear infinite;
+            will-change: transform;
         }
 
         .edit-chip {
@@ -367,33 +357,16 @@
             color: var(--text-muted) !important;
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(14px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .reveal.in-view {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         @keyframes mobileBannerDrift {
-            0% { transform: scale(1.04) translate3d(-10px, -2px, 0); }
-            50% { transform: scale(1.08) translate3d(3px, 2px, 0); }
-            100% { transform: scale(1.06) translate3d(8px, -3px, 0); }
+            0% { transform: scale(1.02) translate3d(-6px, -2px, 0); }
+            50% { transform: scale(1.045) translate3d(2px, 2px, 0); }
+            100% { transform: scale(1.03) translate3d(5px, -2px, 0); }
         }
 
         @keyframes mobileOverlayPulse {
-            0% { transform: translateZ(28px) scale(1); opacity: 0.98; }
-            50% { transform: translateZ(40px) scale(1.06); opacity: 1; }
-            100% { transform: translateZ(28px) scale(1); opacity: 0.98; }
-        }
-
-        @keyframes mainReelBreath {
-            0% { box-shadow: 0 24px 58px rgba(255, 45, 180, 0.24), 0 11px 28px rgba(0, 229, 255, 0.2); }
-            50% { box-shadow: 0 30px 72px rgba(255, 45, 180, 0.34), 0 14px 36px rgba(0, 229, 255, 0.28); }
-            100% { box-shadow: 0 24px 58px rgba(255, 45, 180, 0.24), 0 11px 28px rgba(0, 229, 255, 0.2); }
+            0% { transform: translateZ(18px) scale(1); opacity: 0.98; }
+            50% { transform: translateZ(26px) scale(1.035); opacity: 1; }
+            100% { transform: translateZ(18px) scale(1); opacity: 0.98; }
         }
 
         @media (max-width: 767px) {
@@ -527,7 +500,7 @@
 
     <section id="home" class="anchor-target hero-section relative flex items-center px-6 pt-28 pb-12 md:py-0 overflow-hidden md:min-h-[82vh] lg:min-h-[90vh]">
         <div class="absolute inset-0 hidden md:block">
-            <img src="banner_desktop.png" alt="Matheus Faria banner" class="hero-banner-main">
+            <img src="banner_desktop.png" alt="Matheus Faria banner" class="hero-banner-main" decoding="async" fetchpriority="high">
             <div class="hero-overlay absolute inset-0"></div>
         </div>
 
@@ -540,8 +513,8 @@
                 </h1>
                 <div class="mt-5 md:hidden">
                     <div class="hero-mobile-stack">
-                        <img src="banner_mobile.png" alt="Matheus Faria banner mobile" class="hero-mobile-base">
-                        <img src="banner_mobile_over.png" alt="" class="hero-mobile-over" aria-hidden="true">
+                        <img src="banner_mobile.png" alt="Matheus Faria banner mobile" class="hero-mobile-base" decoding="async" fetchpriority="high">
+                        <img src="banner_mobile_over.png" alt="" class="hero-mobile-over" aria-hidden="true" decoding="async">
                     </div>
                 </div>
                 <p class="mt-6 text-slate-200/90 text-base md:text-lg max-w-xl">
@@ -558,7 +531,7 @@
                         <div class="edit-icons-track">
                             <span class="edit-chip">✂️ Fast Cuts</span>
                             <span class="edit-chip">🎯 Hook Design</span>
-                            <span class="edit-chip">🎨 Color Grading</span>
+                            <span class="edit-chip">🎨 Colour Grading</span>
                             <span class="edit-chip">🎧 Sound Design</span>
                             <span class="edit-chip">📝 Subtitles</span>
                             <span class="edit-chip">⚡ Motion Graphics</span>
@@ -566,7 +539,7 @@
                             <span class="edit-chip">🖼️ Thumbnails</span>
                             <span class="edit-chip">✂️ Fast Cuts</span>
                             <span class="edit-chip">🎯 Hook Design</span>
-                            <span class="edit-chip">🎨 Color Grading</span>
+                            <span class="edit-chip">🎨 Colour Grading</span>
                             <span class="edit-chip">🎧 Sound Design</span>
                             <span class="edit-chip">📝 Subtitles</span>
                             <span class="edit-chip">⚡ Motion Graphics</span>
@@ -579,15 +552,15 @@
         </div>
     </section>
 
-    <section id="reels" class="anchor-target relative px-0 overflow-hidden no-reveal">
+    <section id="reels" class="anchor-target relative px-0 overflow-hidden">
         <div class="viral-dark-section w-full pt-12 md:pt-10 pb-24 md:pb-32">
-            <div class="relative z-10 text-center px-6 max-w-[1180px] mx-auto viral-motion-root">
+            <div class="relative z-10 text-center px-6 max-w-[1180px] mx-auto">
             <h2 class="text-4xl font-bold text-center mt-10 mb-12">Viral <span class="text-blue-400">Content</span></h2>
 
-            <div class="reels-showcase viral-motion-target">
+            <div class="reels-showcase">
                 <div class="reel-slot is-side">
                     <article class="reel-card">
-                        <video class="reel-frame" src="reels.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+                        <video class="reel-frame" src="reels.mp4" muted loop playsinline controls preload="none"></video>
                     </article>
                 </div>
                 <div class="reel-slot is-main">
@@ -597,7 +570,7 @@
                 </div>
                 <div class="reel-slot is-side">
                     <article class="reel-card">
-                        <video class="reel-frame" src="reels.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+                        <video class="reel-frame" src="reels.mp4" muted loop playsinline controls preload="none"></video>
                     </article>
                 </div>
             </div>
@@ -637,7 +610,7 @@
             <div class="card-bg p-8 rounded-2xl">
                 <div class="text-blue-400 mb-4 text-3xl">✨</div>
                 <h4 class="text-xl font-bold mb-3">Motion & Finishing</h4>
-                <p class="text-slate-300">Motion graphics, captions, sound design, color work, and finishing touches that elevate the final cut.</p>
+                <p class="text-slate-300">Motion graphics, captions, sound design, colour work, and finishing touches that elevate the final cut.</p>
             </div>
             <div class="card-bg p-8 rounded-2xl">
                 <div class="text-blue-400 mb-4 text-3xl">🖼️</div>
@@ -658,12 +631,12 @@
             <div>
                 <span class="text-blue-400 font-bold text-2xl">02.</span>
                 <h4 class="text-xl font-bold mt-2">Production</h4>
-                <p class="text-slate-300 mt-2 text-sm">Editing, sound design, and color grading to ensure maximum quality.</p>
+                <p class="text-slate-300 mt-2 text-sm">Editing, sound design, and colour grading to ensure maximum quality.</p>
             </div>
             <div>
                 <span class="text-blue-400 font-bold text-2xl">03.</span>
                 <h4 class="text-xl font-bold mt-2">Delivery</h4>
-                <p class="text-slate-300 mt-2 text-sm">Final adjustments and delivery of optimized files for each platform.</p>
+                <p class="text-slate-300 mt-2 text-sm">Final adjustments and delivery of optimised files for each platform.</p>
             </div>
         </div>
     </section>
@@ -755,7 +728,7 @@
             </div>
         </div>
         <div class="md:w-1/2 flex justify-center">
-            <img src="rodape.png" alt="Matheus Faria" class="rounded-3xl shadow-blue-500/20 shadow-2xl w-full max-w-xl object-cover border border-slate-700/40">
+            <img src="rodape.png" alt="Matheus Faria" class="rounded-3xl shadow-blue-500/20 shadow-2xl w-full max-w-xl object-cover border border-slate-700/40" loading="lazy" decoding="async">
         </div>
     </section>
 
@@ -769,8 +742,7 @@
             var mobileMenuPanel = document.getElementById('mobileMenuPanel');
             var mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
             var reelsShowcase = document.querySelector('.reels-showcase');
-            var viralMotionRoot = document.querySelector('.viral-motion-root');
-            var viralMotionTarget = document.querySelector('.viral-motion-target');
+            var reelsSection = document.getElementById('reels');
 
             if (mobileMenuBtn && mobileMenuPanel) {
                 mobileMenuBtn.addEventListener('click', function () {
@@ -787,6 +759,7 @@
 
             if (reelsShowcase) {
                 var slots = Array.prototype.slice.call(reelsShowcase.querySelectorAll('.reel-slot'));
+                var viralVideos = slots.map(function (slot) { return slot.querySelector('video'); }).filter(Boolean);
 
                 function setMainSlot(targetSlot) {
                     if (!targetSlot || targetSlot.classList.contains('is-main')) return;
@@ -807,6 +780,7 @@
                         if (!v) return;
                         if (v === video) return;
                         v.muted = true;
+                        v.pause();
                     });
                     if (video) {
                         video.muted = false;
@@ -821,46 +795,44 @@
                     video.muted = true;
                     video.addEventListener('click', function () { focusVideo(slot, video); });
                 });
-            }
 
-            if (viralMotionRoot && viralMotionTarget) {
-                var ticking = false;
-                function updateViralMotion() {
-                    var rect = viralMotionRoot.getBoundingClientRect();
-                    var vh = window.innerHeight || 800;
-                    var progress = (vh - rect.top) / (vh + rect.height);
-                    var clamped = Math.max(0, Math.min(1, progress));
-                    var y = (1 - clamped) * 18;
-                    var scale = 0.985 + clamped * 0.03;
-                    viralMotionTarget.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0) scale(' + scale.toFixed(4) + ')';
-                    viralMotionTarget.style.filter = 'saturate(' + (0.95 + clamped * 0.12).toFixed(3) + ')';
-                    ticking = false;
-                }
-                function onScroll() {
-                    if (!ticking) {
-                        window.requestAnimationFrame(updateViralMotion);
-                        ticking = true;
+                function setViralActivity(active) {
+                    if (!active) {
+                        viralVideos.forEach(function (v) {
+                            v.pause();
+                            v.muted = true;
+                        });
+                        return;
                     }
+                    var mainVideo = reelsShowcase.querySelector('.reel-slot.is-main video');
+                    viralVideos.forEach(function (v) {
+                        if (v !== mainVideo) {
+                            v.pause();
+                            v.muted = true;
+                        }
+                    });
+                    if (mainVideo) mainVideo.play().catch(function () {});
                 }
-                window.addEventListener('scroll', onScroll, { passive: true });
-                window.addEventListener('resize', onScroll);
-                onScroll();
-            }
 
-            var revealItems = document.querySelectorAll('section:not(.no-reveal), footer');
-            var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                        observer.unobserve(entry.target);
+                if (reelsSection) {
+                    var viralObserver = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            setViralActivity(entry.isIntersecting && !document.hidden);
+                        });
+                    }, { threshold: 0.2 });
+                    viralObserver.observe(reelsSection);
+                }
+
+                document.addEventListener('visibilitychange', function () {
+                    if (document.hidden) {
+                        setViralActivity(false);
+                    } else if (reelsSection) {
+                        var rect = reelsSection.getBoundingClientRect();
+                        var inView = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+                        setViralActivity(inView);
                     }
                 });
-            }, { threshold: 0.14 });
-
-            revealItems.forEach(function (item) {
-                item.classList.add('reveal');
-                observer.observe(item);
-            });
+            }
         })();
     </script>
 
